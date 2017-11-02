@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script src="vue/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="vue/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script src="vue/vue-router.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="component/header.css"/>
+	</head>
+	<body>
+	    
+	    <div id="app">
+	        <navigation title="影视详情" left-src="img/search.png" left-path="javascript:history.back();"></navigation>
+	    	<div class="main-content">
+	    	    <video v-bind:src="src" controls=""></video>
+	    		<p>{{item.title}}</p>
+	    		<p>作者:{{item.author_name}}</p>
+	    		
+	    	</div>
+	    </div>
+	    
+	    <script src="js/interface.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="js/base64.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="component/header.js" type="text/javascript" charset="utf-8"></script>
+	    <script type="text/javascript">
+	    	
+	    	var data = {
+	    	    imagePrefix:imagePrefix,
+	    	    item:{},
+	    	    src:""
+	    	}
+	    	
+	    	var app = new Vue({
+	    	    el:"#app",
+	    	    data:data,
+	    	    
+	    	    created:function () {
+	    	    	
+	    	    	var id = sessionStorage.id;
+	    	    	//alert(id)
+	    	    	
+	    	    	var url = movieDetailUrl+"&id="+id;
+	    	    	console.log(url)
+	    	    	this.$http.get(url).then(function (r) {
+	    	    	    this.item = r.data.data;
+	    	    		
+	    	    	    		
+	    	    		this.src = this.imagePrefix+this.item.media_url;
+	    	    	})
+	    	    	
+	    	    }
+	    	})
+	    	
+	    	
+	    </script>
+	    
+	</body>
+</html>

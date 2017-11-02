@@ -1,0 +1,38 @@
+.table-view{
+                background-color: #ddd;
+            }
+            .table-view-cell{
+                background-color: white;
+                margin-bottom: 10px;
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                padding: 10px;
+            }
+            .table-view-cell img{
+                width: 100%;
+            }
+            .table-view-cell .cell-category{
+                text-align: center;
+                font-size: 13px;
+                color: #bbb;
+                
+            }
+            .table-view-cell .cell-title{
+                
+                padding: 5px 0 5px 0;
+            }
+            .table-view-cell .cell-author{
+                font-size: 14px;
+                color: #666;
+                padding: 5px 0 5px 0;
+            }
+            .table-view-cell .cell-forward{
+                font-size: 14px;
+                color: #666;
+                padding: 5px 0 5px 0;
+            }
+            .table-view-cell .cell-info{
+                font-size: 12px;
+                color: #666;
+                padding: 5px 0 5px 0;
+            }

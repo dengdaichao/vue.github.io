@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<script src="vue/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="vue/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script src="vue/vue-router.js" type="text/javascript" charset="utf-8"></script>
+		
+		<style type="text/css">
+			*{
+			    margin: 0;
+			    padding: 0;
+			}
+			ul,li{
+			    list-style: none;
+			}
+			a{
+			    color: black;
+			    text-decoration: none;
+			}
+			.main-content{
+			    padding: 44px 0 49px 0;
+			}
+			
+			
+			.swiper-container {
+                width: 100%;
+                margin: 0 auto;
+            }
+            .swiper-container img{
+                width: 100%;
+                height: 200px;
+            }
+            
+            
+            
+            
+            
+            
+		</style>
+		<link rel="stylesheet" type="text/css" href="component/header.css"/>
+		<link rel="stylesheet" type="text/css" href="component/footer.css"/>
+		<link rel="stylesheet" type="text/css" href="swiper/swiper.min.css"/>
+		
+		<link rel="stylesheet" type="text/css" href="css/commonList.css"/>
+		
+	</head>
+	<body>
+	    
+	    
+	    <div id="app">
+	    	<!--组件-->
+            <!--<div class="header">
+                <div class="left">
+                    <a href=""><img src="img/search.png"/></a>
+                </div>
+                <div class="title">
+                    标题
+                </div>
+                <div class="right">
+                    <a href=""><img src="img/user2.png"/></a>
+                </div>
+            </div>-->
+            <navigation title="阅读" left-src="img/search.png" right-src="img/user2.png" left-path="" right-path="">
+                
+            </navigation>
+            
+            <div class="main-content">
+                
+       
+                <div class="table-view">
+                    <li class="table-view-cell" v-for="item in list" v-on:click="dealClick(item.id,item.category)">
+                        <p class="cell-category">- {{getCName(item.category)}} -</p>
+                        <p class="cell-title">{{item.title}}</p>
+                        <p class="cell-author">作者:{{item.author_name}}</p >
+                        <p class="cell-img"><img v-bind:src="imagePrefix+item.img_url"/></p>
+                        <p class="cell-forward">{{item.forward}}</p>
+                        <p class="cell-info">发布时间:{{item.post_date}} 喜欢:{{item.like_count}}</p>
+                    </li>
+                </div>
+                
+            </div>
+            
+            <!--组件-->
+            <tabbar active-index="1"></tabbar>
+  
+            
+	    </div>
+	    
+	    <script src="js/interface.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="component/header.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="component/footer.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="swiper/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+	    <script type="text/javascript">
+	    	
+	    	var data = {
+	    	    adsList:[],
+	    	    imagePrefix:imagePrefix,
+	    	    list:[]
+	    	}
+	    	
+	    	var app = new Vue({
+	    	    el:"#app",
+	    	    data:data,
+	    	    
+	    	    methods:{
+	    	        getCName:function (c) {
+	    	            var dict = {
+	    	                '1':'阅读',
+	    	                '4':'音乐',
+	    	                '5':'影视'
+	    	            }
+	    	        	return dict[c];
+	    	        },
+	    	        dealClick:function (id,c) {
+	    	        	var dict = {
+	    	        	    "1":"readDetail.html",
+	    	        	    "4":"musicDetail.html",
+	    	        	    "5":"movieDetail.html",
+	    	        	}
+	    	        	
+	    	        	sessionStorage.id = id;
+	    	        	location.href = dict[c];
+	    	        }
+	    	    },
+	    	    
+	    	    created:function () {
+	    	    	
+	    	    	//下载列表数据
+	    	    	this.$http.get(readListUrl).then(function (r) {
+	    	    		this.list = r.data.data;
+	    	    	})
+	    	    	
+	    	    }
+	    	})
+	    	
+	    </script>
+	    
+	    
+	    <!--
+	                     导航栏  navigation.js navigation.css
+	                               组件
+	                5个参数
+	                                          左侧按钮图片路径,跳转网址
+	                                          标题
+	                                          右侧按钮图片路径,跳转网址
+	                     
+	                     轮播图   第三方库
+	                               放张图
+	                               组件: 暂时不写, 第三方库 
+	                               
+	            
+	                     
+	                     
+	                     列表
+	                               参考: 网络数据下载中的       
+	                               
+	                               
+	            <div v-for="item in list" v-bind:id='item.id' v-on:click=''></div>
+	                     
+	                     标签栏 tabbar.js tabbar.css
+	                               组件
+	                4个按钮
+	                   index.html
+	                   readList.html
+	                   musicList.html
+	                   movieList.html
+	                   
+	                   
+	                       详情页 -显示文章
+	                               文章是html, 别用{{}}, v-text
+	                               要用 v-html
+	                      音乐详情,影视详情
+	            audio/video  使用v-bind:src 绑定src
+	    -->
+	    
+	    <!--
+	        
+	        首页
+	        阅读列表
+	        音乐列表
+	        影视列表
+	        阅读详情
+	        音乐详情
+	        影视详情
+	        首页-跳转到3个详情页
+	       
+	        搜索
+	        注册   
+	        登陆
+	        用户主页
+	        
+	        
+	    -->
+	    
+	</body>
+</html>

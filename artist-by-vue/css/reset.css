@@ -1,0 +1,16 @@
+*{
+                margin: 0;
+                padding: 0;
+            }
+            ul,li{
+                list-style: none;
+            }
+            a{
+                color: black;
+                text-decoration: none;
+            }
+            
+
+            .main-content{
+                padding: 44px 0 49px 0;
+            }
